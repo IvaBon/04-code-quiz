@@ -4,7 +4,7 @@
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
-/* need styling for start page  */
-/* need styling for questions  */
-/* game over page */
-/* and highscore page */
+.hide{
+    visibility:hidden;
+
+}
