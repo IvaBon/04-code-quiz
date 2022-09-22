@@ -11,6 +11,6 @@ presented with a series of question's. Get the question correct and you go on to
 
 ## Screenshot 
 
-![sc](./assests/_C__Users_ivanb_bootcamp_homwork_04-code-quiz_index.html.png)
+![screenshot of webpage](./assests/_C__Users_ivanb_bootcamp_homwork_04-code-quiz_index.html.png)
 
 
