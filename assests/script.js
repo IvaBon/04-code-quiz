@@ -5,14 +5,29 @@
 // need function to start quiz
 // once button clicked the page should hide
 
-
+//global tags
 var startButton = document.getElementById('startButton');
 var startPage = document.getElementById('startpage');
 var timer= document.getElementById('timer');
 var highScore= document.querySelector("#score")
-
-
-var timeLeft= 100;
+var correct= document.getElementsByClassName('correct')
+var wrong=document.getElementsByClassName("wrong")
+//tags for quiz section
+var section= document.createElement('section');
+var questionTitle= document.createElement('h2');
+var ul=document.createElement('ul');
+var choice1=document.createElement('button');
+var choice2=document.createElement('button');
+var choice3=document.createElement('button');
+var choice4=document.createElement('button');
+//tags for gameover
+var title = document.createElement('section');
+var gameOverTitle= document.createElement('h2');
+var scoreWord = document.createElement('div');
+var restart=document.createElement('button');
+var save=document.createElement('button');
+// tags for logic
+var timeLeft= 5;
 var amount= 0;
 var s =0;
 var score=[];
@@ -26,7 +41,7 @@ function countdownTimer(){
       timer.textContent= timeLeft;
       if (timeLeft===0 || amount >= questions.length){
           clearInterval(timeInterval)
-          // functino for the end of quiz here
+          gameOver();
       }
   },1000)
 }
@@ -44,19 +59,35 @@ function startQuiz(){
     countdownTimer();
 }
 
+function gameOver(){
+   questionTitle.className=("hide")
+   ul.className=("hide")
 
+   document.body.appendChild(title);
+   title.appendChild(gameOverTitle);
+   title.appendChild(scoreWord);
+   title.appendChild(restart);
+   title.appendChild(save);
+
+   gameOverTitle.textContent=('Its Game Over Man');
+   scoreWord.textContent=('Score: ', score );
+   restart.textContent=('Restart')
+   save.textContent=('Save Score')
+
+  
+   restart.addEventListener('click',function(event){
+     var event= event.target;
+     window.location.reload();
+   })
+  
+
+
+}
 
 // how do i get each item out of the array
 function getAndShowAQuestion(){
     
-    var section= document.createElement('section');
-    var questionTitle= document.createElement('h2');
-    var ul=document.createElement('ul');
-    var choice1=document.createElement('button');
-    var choice2=document.createElement('button');
-    var choice3=document.createElement('button');
-    var choice4=document.createElement('button');
-
+    
     document.body.appendChild(section);
     section.appendChild(questionTitle);
     section.appendChild(ul);
@@ -66,49 +97,51 @@ function getAndShowAQuestion(){
     ul.appendChild(choice4);
     
     if (amount < questions.length){
-      questionTitle.textContent=questions[amount].questionText
+      questionTitle.textContent=questions[amount].questionText;
       choice1.textContent=questions[amount].choices[0];
       choice2.textContent=questions[amount].choices[1];
       choice3.textContent=questions[amount].choices[2];
       choice4.textContent=questions[amount].choices[3];
-    } else{
-      // gameover funciotn here
+    } else {
+      gameOver();
     }   
+
+  ul.addEventListener('click',function(event){
+      var event = event.target;
+      answers(event.textContent.trim());
+    })
 }
 // need funtion to check if answer is right or wrong
 function answers(event){
   if (amount >= questions.length){
-    // game over funcion here
+    gameOver();
     clearInterval(timeInterval);
   } else {
     if (event === questions[amount].choices){
-      alert("Correct!");
+      correct.textContent=("Correct!");
     } else{
       timeLeft-=10;
-      alert("Wrong!");
+      wrong.textContent=("Wrong!");
     }
     score=timeLeft;
     amount++;
     getAndShowAQuestion();
   }
 }
-//game over funciton 
-function gameOver(){
-   
-}
- 
+
+
 startButton.addEventListener('click',startQuiz);
 
 var questions =[
   {
-    questionText: 'Placeholder question number one',
+    questionText: 'good to have as a pet',
     choices:['god','cat','unicorn','poiz'] ,
     rightAwnswer:'cat' 
   },
   {
-    questionText: 'Placeholder question number sjdfkjs',
-    choices:['god','cat','unicorn','poiz'] ,
-    rightAwnswer:'unicorn'
+    questionText: 'who willi you eat',
+    choices:['pig','dog','hoires','people'] ,
+    rightAwnswer:'people'
   },
 
 ]
